@@ -17,7 +17,11 @@ class FullMenu {
       this.addContent();
    }
    generateHTML() {
+      this.menuStyles = this.target + "_tailor_menu_styling";
+      this.menuToggle = this.target + "_toggle";
       this.genhtml = '<div class=TailorMenu><div id=TailorMenuOptions><ul><a href=""><li>Home</a><a href=""><li>Contact</a><a href=""><li>About</a></ul></div><div id=TailorMenuLogo></div></div><div id=open-tailor-menu><div id=TailorMenuPosition></div><div id=TailorMenuText>MENU</div></div>';
+      this.genhtml += "<div id='" + this.menuStyles + "'></div><div id='" + this.menuToggle + "'></div>";
+      
    }
    generateCSS() {
       this.targetString = "#" + this.target;
@@ -38,32 +42,27 @@ class FullMenu {
       this.gencss += this.targetString + " .TailorMenu ul a {color: #fff;text-decoration: none;transition: transform .2s}#TailorMenuLogo {background: url(http://chittagongit.com/images/image-placeholder-icon/image-placeholder-icon-15.jpg);width: 30vw;height: 30vw;background-size: contain;position: absolute;right: 10vw;top: 50%;transform: translateY(-50%)}";
    }
    addContent() {
-      this.genhtml += "<div id='" + this.target + "_tailor_menu_styling'></div><div id='" + this.target + "_buttontoggle'></div>";
-      this.menu = this.target + "_tailor_menu_styling";
-      this.toggle = this.target + "_toggle";
-
-      window.addEventListener("DOMContentLoaded", function () {
-         document.getElementById(this.target).innerHTML += this.genhtml;
-         document.getElementById(this.menu).innerHTML += "<style>" + this.gencss + "</style>";
-         document.getElementById(this.toggle).addEventListener("click", function () {
-            changeMenu(this.target + "_buttontoggle");
-         });
+      this.menuOpen = false;
+      this.menuOpen = changeMenu(this.target, this.menuOpen);
+      document.getElementById(this.target).innerHTML += this.genhtml;
+      document.getElementById(this.menuStyles).innerHTML += "<style>" + this.gencss + "</style>";
+      document.getElementById(this.menuToggle).addEventListener("click", function () {
+         this.menuOpen = changeMenu(this.target, this.menuOpen);
       });
    }
 }
 
-const changeMenu = function(menuListener){
+const changeMenu = function(menuListener, menuopen){
    if(!menuopen){
      document.getElementById(menuListener).innerHTML = "<style>.TailorMenu{top:0px !important;}</style>";
-     menuopen = true;
-   }else{
-     document.getElementById(menuListener).innerHTML = "<style>.TailorMenu{top:-200% !important;}</style>";
-     menuopen = false;
+     return true;
    }
+   document.getElementById(menuListener).innerHTML = "<style>.TailorMenu{top:-200% !important;}</style>";
+   menuopen = false;
 };
 
 var main = {
-	FullMenu: new FullMenu
+	FullMenu
 };
 
 module.exports = main;
