@@ -1,0 +1,36 @@
+{
+  "name": "@sigkar/tailormadejs",
+  "version": "0.0.1",
+  "description": "Tailormade is a group of small one-time or randomly generated UI elements and components. These can vary in usability and degree. See tailormadejs/examples for usage and details",
+  "main": "dist/tailormade.cjs.js",
+  "module": "dist/tailormade.esm.js",
+  "browser": "dist/tailormade.umd.js",
+  "keywords": [
+    "tailormade",
+    "ui",
+    "components",
+    "dom",
+    "document",
+    "object",
+    "management"
+  ],
+  "author": "Duncan Pierce",
+  "license":"MIT",
+  "dependencies": {
+    "ms": "^2.0.0"
+  },
+  "devDependencies": {
+    "rollup": "^1.0.0",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-node-resolve": "^4.0.0"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "test": "node test/test.js",
+    "pretest": "npm run build"
+  },
+  "files": [
+    "dist"
+  ]
+}
