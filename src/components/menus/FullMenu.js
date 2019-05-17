@@ -108,7 +108,7 @@ class FullMenu {
       let target = this.target;
       let menuToggle = this.menuToggle;
 
-      await new NewDom(this.target, this.menuStyles, this.gencss, this.genhtml);
+      this.dom = new NewDom(this.target, this.menuStyles, this.gencss, this.genhtml);
       document.getElementById(target + '-open-tailor-menu').addEventListener("click", function() {
          menuOpen = changeMenu(target, menuToggle, menuOpen);
       });

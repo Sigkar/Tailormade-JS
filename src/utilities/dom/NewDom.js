@@ -20,7 +20,7 @@ export function NewDom(target, styleTarget, styles, html) {
   
 }
 
-NewDom.prototype.addContent = async function() {
+NewDom.prototype.addContent = function() {
   try {
     document.getElementById(this.target).innerHTML += this.html;
     document.getElementById(this.styleTarget).innerHTML +=
