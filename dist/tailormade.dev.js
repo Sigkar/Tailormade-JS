@@ -161,24 +161,18 @@ const changeMenu = function(target, menuListener, menuopen) {
 };/**
  * @Author Duncan Pierce <devduncanrocks@gmail.com>
  */
-class GenerateHash{
-   constructor(length = 36){
-      this.length = length;
-      return this._generateHash();
-   }
-   _generateHash(){
-      return Math.random().toString(this.length).replace('0.', '');
-   }
+function GenerateHash(length = 36){
+      return Math.random().toString(length).replace('0.', '');
 }class GeneratePage {
   constructor(_components) {
-     console.log(_components);
-    let _componentData = {};
-    Object.keys(_components).map(function(objectKey, index) {
-      _componentData[index] = {"hash": new GenerateHash(),"component": _components[objectKey]};
+    console.log(_components);
+    // For each component on this page, gen a nonce
+    Object.keys(_components).map(function(objectKey, index, _componentData) {
+      _componentData.index = {"hash": GenerateHash(),"component": _components[objectKey]};
+      _components[objectKey].init();
     });
-   this.componentData = _componentData;
-    console.log("Components:");
-    console.log(this.components);
+    
+    
   }
 }var main = {
 	FullMenu,

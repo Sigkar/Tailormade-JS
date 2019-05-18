@@ -1,4 +1,6 @@
-'use strict';//NewDom.js
+'use strict';
+
+//NewDom.js
 /**
    * @author Duncan Pierce <devduncanrocks@gmail.com>
    * @param {string} target
@@ -31,7 +33,9 @@ NewDom.prototype.addContent = function() {
         e
     );
   }
-};/**
+};
+
+/**
  * @author Duncan Pierce <devduncanrocks@gmail.com>
  * @param {object} options
  * @param {string} target
@@ -158,29 +162,31 @@ const changeMenu = function(target, menuListener, menuopen) {
   document.getElementById(menuListener).innerHTML =
     "<style>.TailorMenu{top:-200% !important;}</style>";
   menuopen = false;
-};/**
+};
+
+/**
  * @Author Duncan Pierce <devduncanrocks@gmail.com>
  */
-class GenerateHash{
-   constructor(length = 36){
-      this.length = length;
-      return this._generateHash();
-   }
-   _generateHash(){
-      return Math.random().toString(this.length).replace('0.', '');
-   }
-}class GeneratePage {
+function GenerateHash(length = 36){
+      return Math.random().toString(length).replace('0.', '');
+}
+
+class GeneratePage {
   constructor(_components) {
-     console.log(_components);
-    let _componentData = {};
-    Object.keys(_components).map(function(objectKey, index) {
-      _componentData[index] = {"hash": new GenerateHash(),"component": _components[objectKey]};
+    console.log(_components);
+    // For each component on this page, gen a nonce
+    Object.keys(_components).map(function(objectKey, index, _componentData) {
+      _componentData.index = {"hash": GenerateHash(),"component": _components[objectKey]};
+      _components[objectKey].init();
     });
-   this.componentData = _componentData;
-    console.log("Components:");
-    console.log(this.components);
+    
+    
   }
-}var main = {
+}
+
+var main = {
 	FullMenu,
 	GeneratePage
-};module.exports=main;
+};
+
+module.exports = main;
