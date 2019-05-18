@@ -1,6 +1,6 @@
 {
   "name": "@sigkar/tailormadejs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Tailormade is a group of small one-time or randomly generated UI elements and components. These can vary in usability and degree. See tailormadejs/examples for usage and details",
   "main": "dist/tailormade.cjs.js",
   "module": "dist/tailormade.esm.js",
@@ -27,6 +27,8 @@
     "rollup-plugin-terser": "^4.0.4"
   },
   "scripts": {
+    "local": "rollup ./src/main.js --file ./local/bundle.js --format umd --name 'tailortest'",
+    "local dev": "rollup ./src/main.js --file ./local/bundle.js --format umd --name 'tailortest' -w",
     "build": "rollup -c --compact",
     "dev": "rollup -c -w",
     "test": "node test/test.js",

@@ -9,6 +9,7 @@ class FullMenu {
   constructor(
     target,
     options = {
+      init: true,
       styles: {
         background: "#f46842",
         fontfamily: "Arial",
@@ -24,30 +25,27 @@ class FullMenu {
       }
     }
   ) {
-     console.log("Constructing");
     this.options = options;
     this.target = target;
   }
   init() {
-     console.log("init html");
     this.generateHTML();
-    console.log("init css");
     this.generateCSS();
-    console.log("add listeners");
     this.addListeners();
   }
   generateHTML() {
     this.menuStyles = this.target + "_tailor_menu_styling";
     this.menuToggle = this.target + "_toggle";
     this.genhtml =
-      '<div class=TailorMenu><div id=TailorMenuOptions><ul><a href=""><li>Home</li></a><a href=""><li>Contact</li></a><a href=""><li>About</li></a></ul></div><div id=TailorMenuLogo></div></div><div id=' + this.target + '-open-tailor-menu><div id=TailorMenuPosition></div><div id=TailorMenuText>MENU</div></div>';
+      '<div class=TailorMenu><div id=TailorMenuOptions><ul><a href=""><li>Home</li></a><a href=""><li>Contact</li></a><a href=""><li>About</li></a></ul></div><div id=TailorMenuLogo></div></div><div id=' +
+      this.target +
+      "-open-tailor-menu><div id=TailorMenuPosition></div><div id=TailorMenuText>MENU</div></div>";
     this.genhtml +=
       "<div id='" +
       this.menuStyles +
       "'></div><div id='" +
       this.menuToggle +
       "'></div>";
-      console.log(this.genhtml);
   }
   generateCSS() {
     this.targetString = "#" + this.target;
@@ -66,7 +64,8 @@ class FullMenu {
       " .TailorMenu {width: 100%;height: 100%;position: " +
       this.options.styles.position.type +
       ";" +
-      this.options.styles.position.startat + ":";
+      this.options.styles.position.startat +
+      ":";
     if (
       this.options.styles.position.startat === "top" ||
       this.options.styles.position.startat === "left"
@@ -96,31 +95,43 @@ class FullMenu {
       "_toggle:hover{font-size: 15px;right: 17px;top: 17px;background-color: #f0f0f0}" +
       this.targetString +
       " .TailorMenu ul {list-style-type: none;font-size: 24px}" +
-      this.targetString + 
-      " .TailorMenu ul li {padding: 10px 0}";
       this.targetString +
+      " .TailorMenu ul li {padding: 10px 0}";
+    this.targetString +
       " .TailorMenu ul a {color: #fff;text-decoration: none;transition: transform .2s}#TailorMenuLogo {background: url('http://chittagongit.com/images/image-placeholder-icon/image-placeholder-icon-15.jpg');width: 30vw;height: 30vw;background-size: contain;position: absolute;right: 10vw;top: 50%;transform: translateY(-50%)}";
-      console.log(this.gencss);
   }
   async addListeners() {
-      let menuOpen = false;
-      let target = this.target;
-      let menuToggle = this.menuToggle;
+    let menuOpen = false;
+    let target = this.target;
+    let menuToggle = this.menuToggle;
 
-      this.dom = new NewDom(this.target, this.menuStyles, this.gencss, this.genhtml);
-      document.getElementById(target + '-open-tailor-menu').addEventListener("click", function() {
-         menuOpen = changeMenu(target, menuToggle, menuOpen);
+    // Construct the New Dom Object
+    this.dom = new NewDom(
+      {
+        target: this.target,
+        styleTarget: this.menuStyles,
+        styles: this.gencss,
+        html: this.genhtml
+      },
+      "HTML"
+    );
+    // Add the DOM object to HTML Content
+    this.dom.tailorComponent();
+
+    document
+      .getElementById(target + "-open-tailor-menu")
+      .addEventListener("click", function() {
+        menuOpen = changeMenu(target, menuToggle, menuOpen);
       });
   }
 }
 
 const changeMenu = function(target, menuListener, menuopen) {
-   console.log(menuListener);
+  console.log(menuListener);
   if (!menuopen) {
-     
     document.getElementById(menuListener).innerHTML =
       "<style>.TailorMenu{top:0px !important;}</style>";
-      console.log("runnin");
+    console.log("runnin");
     return true;
   }
   document.getElementById(menuListener).innerHTML =
