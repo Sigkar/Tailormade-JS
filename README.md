@@ -9,6 +9,8 @@ Tailormade is a UI kit which specializes in
 
 Currently, Tailormade is in Beta and not available on NPM. Please star the repository if you are interested in continuing, or download the source and make changes with a pull request.
 
+To test, use ```tailormade.umd.min.js``` for the best developer experience.
+
 ### Dependencies
 
 "ms": "^2.0.0"
@@ -16,7 +18,9 @@ Currently, Tailormade is in Beta and not available on NPM. Please star the repos
 ### Dev Dependencies
 
 "rollup": "^1.0.0",
+
 "rollup-plugin-commonjs": "^9.2.0",
+
 "rollup-plugin-node-resolve": "^4.0.0"
 
 ### Installing
@@ -40,6 +44,7 @@ npm run dev
 ## Built With
 
 * [NodeJS](https://nodejs.org/en/)
+
 * [NPM](https://www.npmjs.com/)
 
 ## Contributing

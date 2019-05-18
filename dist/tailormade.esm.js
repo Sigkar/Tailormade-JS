@@ -20,7 +20,7 @@ function NewDom(target, styleTarget, styles, html) {
   
 }
 
-NewDom.prototype.addContent = async function() {
+NewDom.prototype.addContent = function() {
   try {
     document.getElementById(this.target).innerHTML += this.html;
     document.getElementById(this.styleTarget).innerHTML +=
@@ -31,9 +31,7 @@ NewDom.prototype.addContent = async function() {
         e
     );
   }
-};
-
-/**
+};/**
  * @author Duncan Pierce <devduncanrocks@gmail.com>
  * @param {object} options
  * @param {string} target
@@ -61,7 +59,6 @@ class FullMenu {
      console.log("Constructing");
     this.options = options;
     this.target = target;
-    this.init();
   }
   init() {
      console.log("init html");
@@ -142,7 +139,7 @@ class FullMenu {
       let target = this.target;
       let menuToggle = this.menuToggle;
 
-      await new NewDom(this.target, this.menuStyles, this.gencss, this.genhtml);
+      this.dom = new NewDom(this.target, this.menuStyles, this.gencss, this.genhtml);
       document.getElementById(target + '-open-tailor-menu').addEventListener("click", function() {
          menuOpen = changeMenu(target, menuToggle, menuOpen);
       });
@@ -161,10 +158,29 @@ const changeMenu = function(target, menuListener, menuopen) {
   document.getElementById(menuListener).innerHTML =
     "<style>.TailorMenu{top:-200% !important;}</style>";
   menuopen = false;
-};
-
-var main = {
-	FullMenu
-};
-
-export default main;
+};/**
+ * @Author Duncan Pierce <devduncanrocks@gmail.com>
+ */
+class GenerateHash{
+   constructor(length = 36){
+      this.length = length;
+      return this._generateHash();
+   }
+   _generateHash(){
+      return Math.random().toString(this.length).replace('0.', '');
+   }
+}class GeneratePage {
+  constructor(_components) {
+     console.log(_components);
+    let _componentData = {};
+    Object.keys(_components).map(function(objectKey, index) {
+      _componentData[index] = {"hash": new GenerateHash(),"component": _components[objectKey]};
+    });
+   this.componentData = _componentData;
+    console.log("Components:");
+    console.log(this.components);
+  }
+}var main = {
+	FullMenu,
+	GeneratePage
+};export default main;

@@ -1,4 +1,4 @@
-'use strict';//NewDom.js
+(function(g,f){typeof exports==='object'&&typeof module!=='undefined'?module.exports=f():typeof define==='function'&&define.amd?define(f):(g=g||self,g.tailormade=f());}(this,function(){'use strict';//NewDom.js
 /**
    * @author Duncan Pierce <devduncanrocks@gmail.com>
    * @param {string} target
@@ -183,4 +183,4 @@ class GenerateHash{
 }var main = {
 	FullMenu,
 	GeneratePage
-};module.exports=main;
+};return main;}));

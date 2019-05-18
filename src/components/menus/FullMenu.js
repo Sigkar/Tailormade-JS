@@ -27,7 +27,6 @@ class FullMenu {
      console.log("Constructing");
     this.options = options;
     this.target = target;
-    this.init();
   }
   init() {
      console.log("init html");
