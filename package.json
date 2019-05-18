@@ -27,6 +27,8 @@
     "rollup-plugin-terser": "^4.0.4"
   },
   "scripts": {
+    "local": "rollup ./src/main.js --file ./local/bundle.js --format umd --name 'tailortest'",
+    "local dev": "rollup ./src/main.js --file ./local/bundle.js --format umd --name 'tailortest' -w",
     "build": "rollup -c --compact",
     "dev": "rollup -c -w",
     "test": "node test/test.js",
