@@ -116,7 +116,7 @@ class FullMenu {
       "HTML"
     );
     // Add the DOM object to HTML Content
-    this.dom.addHtmlContent();
+    this.dom.tailorComponent();
 
     document
       .getElementById(target + "-open-tailor-menu")

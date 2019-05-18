@@ -2,42 +2,52 @@
 
 //NewDom.js
 /**
-   * @author Duncan Pierce <devduncanrocks@gmail.com>
-   * @param {object} options
-   * @param {string} type
-   * @returns null
-   */
-const NewDom = function(options, type="HTML") {
-
+ * @author Duncan Pierce <devduncanrocks@gmail.com>
+ * @param {object} options
+ * @param {string} type
+ * @returns null
+ */
+const NewDom = function(options, type = "HTML") {
   this.type = type.toUpperCase();
-  switch(this.type){
+  switch (this.type) {
     case "HTML":
-      try{
-        this.target = options.target;
+      try {
+        if (options.target) {
+          this.target = options.target;
+        } else {
+          this.target = Date.now().toString(36);
+          this._targetGenerated = true;
+        }
         this.styleTarget = options.styleTarget;
         this.styles = options.styles;
         this.html = options.html;
-        console.log("[NewDom] Generating this");
-      }catch(e){
+      } catch (e) {
         returnFailed(e);
         return false;
       }
-    break;
+      break;
     case "TEXT":
       var tempStamp = Date.now().toString(36);
       this.elementToGenerate = options.element;
-      if(options.elementName){
-         this.tailoredElement[name] = options.elementName;
-      }else{
+      if (options.elementName) {
+        this.tailoredElement[name] = options.elementName;
+      } else {
         this.tailoredElement[name] = tempStamp;
       }
 
-    break;
+      break;
     case "ELEMENT":
-
-    break;
+      break;
     default:
+  }
+};
 
+NewDom.prototype.tailorComponent = function() {
+  try {
+    this.addHtmlContent();
+    this.addCSSContent();
+  } catch (e) {
+    returnFailed(e);
   }
 };
 
@@ -45,43 +55,51 @@ const NewDom = function(options, type="HTML") {
  * @author Duncan Pierce <devduncanrocks@gmail.com>
  * @description Drops the new content into your target div or tailormade
  * generated div.
- * @constructed_params 
+ * @constructed_params
  */
 NewDom.prototype.addHtmlContent = function() {
-  console.log("[NewDom][addHtmlContent] Adding HTML");
   try {
-    document.getElementById(this.target).innerHTML += this.html;
-    this.elementToGenerate = "style";
-    this.currentElement = this.tailorElement();
-    // console.log("[NewDom][addHtmlContent] Creating element");
-    // console.log(this.currentElement);
-
-    // this.textToGenerate = this.styles;
-    // this.currentText = this.tailorText();
-
-    // console.log("[NewDom][addHtmlContent] Creating currentText");
-    // console.log(this.currentText);
-    
-    // console.log("[NewDom][addHtmlContent] Appending Current Text to Current Element");
-    // this.currentElement.appendChild(this.currentText);
-
-    // console.log("[NewDom][addHtmlContent] Adding element to style target");
-    // this.test = document.getElementById(this.styleTarget).appendChild(this.currentElement);
-
-    this.test = this.createStyleSheet();
-    console.log("Test:" + this.test);
+    if (this._targetGenerated) {
+      // If we werent supplied with a target, then generate it and append
+      this.elementToGenerate = "div";
+      this.tailoredElement.name = this.target;
+      this.tailorElement();
+      document.body.appendChild(this._targetHtml);
+    }
+    this._targetHtml = document.getElementById(this.target);
+    this._targetHtml.innerHTML += this.html;
   } catch (e) {
     returnFailed(e, "[ADDHTMLCONTENT]\n");
     return false;
   }
 };
 
+NewDom.prototype.addCSSContent = function() {
+  console.log("creating target style");
+  // --- Generate a new style
+  this.elementToGenerate = "style";
+  this.elementName = "tailored_generated_style_" + Date.now().toString(36);
+  this.tailorElement();
+  // --- End generating style
 
-NewDom.prototype.tailorText = function(){
+  // --- Generate inner styling text
+  this.textToGenerate = this.styles;
+  let _currentStyles = this.tailorText();
+  this.currentElement[this.elementToGenerate.toString()].appendChild(_currentStyles);
+  // --- End generating inner styling text
+
+  // --- Append styling to document
+  this.test = document
+    .getElementById(this.styleTarget)
+    .appendChild(this.currentElement[this.elementToGenerate.toString()]);
+  // --- End appending styling to document
+};
+
+NewDom.prototype.tailorText = function() {
   console.log("[NewDom][TailorText] Generating Text");
-  try{
-    document.createTextNode(this.textToGenerate);
-  }catch(e){
+  try {
+    return document.createTextNode(this.textToGenerate);
+  } catch (e) {
     returnFailed(e, "[ADDTEXT]\n");
     return false;
   }
@@ -94,39 +112,40 @@ NewDom.prototype.tailorText = function(){
  * @constructed_params {object} this.elementToGenerated
  * @returns {null}
  */
-NewDom.prototype.tailorElement = function(){
-  console.log("[NewDom][TailorElement] Generating Element");
-  try{
-    if(!this.tailoredElement){
+NewDom.prototype.tailorElement = function() {
+  try {
+    console.log("[tailorElement]Generating tailored element\n\n");
+    if (!this.tailoredElement) {
       this.tailoredElement = {};
     }
-    if(!this.tailoredElement.name){
-      this.tailoredElement[name] = Date.now().toString(36);
-    }
-    this.tailoredElement.name["element"] = document.createElement(this.elementToGenerate);
-  }catch(e){
+    let _stamp = "Tailored_object_" + Date.now().toString(16);
+
+    let _currentObject = this.tailoredElement;
+    console.log(_currentObject);
+
+    _currentObject[_stamp.toString()] = {};
+    _currentObject = _currentObject[_stamp.toString()];
+
+    this.elementName
+      ? (_currentObject["element"] = this.elementName)
+      : (_currentObject["element"] = Date.now().toString(32));
+    // Add the element to that objects key
+    _currentObject[this.elementToGenerate] = document.createElement(
+      this.elementToGenerate
+    );
+    this.tailoredElement[_stamp.toString()] = _currentObject;
+    this.currentElement = _currentObject;
+  } catch (e) {
     returnFailed(e, "[CREATELEMENT]\n");
     return false;
   }
+  return this.tailoredElement;
 };
 
-NewDom.prototype.createStyleSheet = function() {
-  this._style = document.createElement('style');
-  this._styleSheet = this.style.styleSheet;
-  if (this._styleSheet) {
-      this._styleSheet.cssText = this.styles;
-  }
-  else {
-      this._style.appendChild(document.createTextNode(this.styles));
-  }
-  this._style.type = 'text/css';
-  return this._style;
-};
-
-const returnFailed = function(error, customMessage=""){
+const returnFailed = function(error, customMessage = "") {
   console.assert(
-    customMessage + 
-    "Tailormade failed to generate the target. \nException and Stack Trace:\n" +
+    customMessage +
+      "Tailormade failed to generate the target. \nException and Stack Trace:\n" +
       error
   );
 };
@@ -248,7 +267,7 @@ class FullMenu {
       "HTML"
     );
     // Add the DOM object to HTML Content
-    this.dom.addHtmlContent();
+    this.dom.tailorComponent();
 
     document
       .getElementById(target + "-open-tailor-menu")
