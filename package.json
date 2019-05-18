@@ -1,6 +1,6 @@
 {
   "name": "@sigkar/tailormadejs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Tailormade is a group of small one-time or randomly generated UI elements and components. These can vary in usability and degree. See tailormadejs/examples for usage and details",
   "main": "dist/tailormade.cjs.js",
   "module": "dist/tailormade.esm.js",
