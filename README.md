@@ -23,6 +23,8 @@ To test, use ```tailormade.umd.min.js``` for the best developer experience.
 
 "rollup-plugin-node-resolve": "^4.0.0"
 
+"rollup-plugin-terser": "^4.04"
+
 ### Installing
 
 Beta v0.0.1 - Not available
@@ -39,6 +41,21 @@ Development:
 
 ```
 npm run dev
+```
+
+## Basic Usage
+
+A basic Tailormade component can be loaded in via the DOM Content.
+
+```
+document.addEventListener("DOMContentLoaded", function(){
+   const homePage = new tailormade.GeneratePage(
+      {
+         'menu': new tailormade.FullMenu("test")
+         // More tailormade components
+      }
+   );
+})
 ```
 
 ## Built With
