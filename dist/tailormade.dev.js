@@ -295,8 +295,8 @@ const changeMenu = function(target, menuListener, menuopen) {
 };/**
  * @Author Duncan Pierce <devduncanrocks@gmail.com>
  */
-function GenerateHash(length = 36){
-      return Math.random().toString(length).replace('0.', '');
+function GenerateHash(base = 36){
+      return Math.random().toString(base).replace('0.', 'tailor');
 }class GeneratePage {
   constructor(_components) {
     console.log("[GeneratePage] Constructor");
