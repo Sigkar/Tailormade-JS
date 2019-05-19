@@ -10,4 +10,16 @@ import { NewDom } from "../../utilities/dom/NewDom";
     constructor(){
 
     }
+    init() {
+       
+    }
+    generateHTML(){
+
+    }
+    generateCSS(){
+
+    }
+    addListeners(){
+
+    }
  }

@@ -145,9 +145,7 @@ const returnFailed = function(error, customMessage = "") {
       "Tailormade failed to generate the target. \nException and Stack Trace:\n" +
       error
   );
-};
-
-/**
+};/**
  * @author Duncan Pierce <devduncanrocks@gmail.com>
  * @param {object} options
  * @param {string} target
@@ -294,16 +292,12 @@ const changeMenu = function(target, menuListener, menuopen) {
   document.getElementById(menuListener).innerHTML =
     "<style>.TailorMenu{top:-200% !important;}</style>";
   menuopen = false;
-};
-
-/**
+};/**
  * @Author Duncan Pierce <devduncanrocks@gmail.com>
  */
-function GenerateHash(length = 36){
-      return Math.random().toString(length).replace('0.', '');
-}
-
-class GeneratePage {
+function GenerateHash(base = 36){
+      return Math.random().toString(base).replace('0.', 'tailor');
+}class GeneratePage {
   constructor(_components) {
     console.log("[GeneratePage] Constructor");
     
@@ -319,11 +313,7 @@ class GeneratePage {
     });
 
   }
-}
-
-var main = {
+}var main = {
 	FullMenu,
 	GeneratePage
-};
-
-export default main;
+};export default main;

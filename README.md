@@ -9,7 +9,7 @@ Tailormade is a UI kit which specializes in
 
 Currently, Tailormade is in Beta and not available on NPM. Please star the repository if you are interested in continuing, or download the source and make changes with a pull request.
 
-To test, use ```tailormade.dev.js``` for the best developer experience.
+To test in an environment, use ```tailormade.dev.js``` for the best developer experience.
 
 ### Dependencies
 
@@ -25,9 +25,21 @@ To test, use ```tailormade.dev.js``` for the best developer experience.
 
 "rollup-plugin-terser": "^4.04"
 
+"jest": "^24.8.0"
+
 ### Installing
 
 Beta v0.0.1 - Not available
+
+## Testing
+
+To test tailormade, simply run the following in your CLI.
+
+Please only write tests in Jest.
+
+```
+npm run test
+```
 
 ## Building
 
