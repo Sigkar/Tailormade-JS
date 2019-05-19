@@ -7,7 +7,7 @@ import { NewDom } from "../../utilities/dom/NewDom";
 
 class FullMenu {
   constructor(
-    target="",
+    target=" ",
     options = {
       init: true,
       styles: {
@@ -27,9 +27,12 @@ class FullMenu {
   ) {
     this.options = options;
     this._targetGenerated = false;
+    
     if(!target){
       this.target = "tailored-"+Date.now().toString(36);
       this._targetGenerated = true;
+    }else{
+      this.target = target;
     }
     
   }

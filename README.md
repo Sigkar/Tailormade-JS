@@ -9,7 +9,7 @@ Tailormade is a UI kit which specializes in
 
 Currently, Tailormade is in Beta and not available on NPM. Please star the repository if you are interested in continuing, or download the source and make changes with a pull request.
 
-To test, use ```tailormade.umd.min.js``` for the best developer experience.
+To test, use ```tailormade.dev.js``` for the best developer experience.
 
 ### Dependencies
 
@@ -31,13 +31,27 @@ Beta v0.0.1 - Not available
 
 ## Building
 
-Building:
+### Local Development Environment
+
+Local Building:
+```
+npm run local
+```
+
+Local Development:
+```
+npm run local dev
+```
+
+### In a production setting
+
+Production Building:
 
 ```
 npm run build
 ```
 
-Development:
+Production Development: (Not recommended)
 
 ```
 npm run dev
