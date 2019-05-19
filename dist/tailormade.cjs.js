@@ -12,15 +12,11 @@ const NewDom = function(options, type = "HTML") {
   switch (this.type) {
     case "HTML":
       try {
-        if (options.target) {
-          this.target = options.target;
-        } else {
-          this.target = Date.now().toString(36);
-          this._targetGenerated = true;
-        }
         this.styleTarget = options.styleTarget;
         this.styles = options.styles;
         this.html = options.html;
+        this.targetGenerated = options.targetGenerated;
+        this.target = options.target;
       } catch (e) {
         returnFailed(e);
         return false;
@@ -59,12 +55,15 @@ NewDom.prototype.tailorComponent = function() {
  */
 NewDom.prototype.addHtmlContent = function() {
   try {
-    if (this._targetGenerated) {
+    if (this.targetGenerated) {
       // If we werent supplied with a target, then generate it and append
       this.elementToGenerate = "div";
-      this.tailoredElement.name = this.target;
+      this.elementName = this.target;
       this.tailorElement();
-      document.body.appendChild(this._targetHtml);
+      console.log("Generated Target:\n");
+      console.log(this.elementName);
+      this.currentElement[this.elementToGenerate.toString()].setAttribute("id", this.elementName);
+      document.body.appendChild(this.currentElement[this.elementToGenerate.toString()]);
     }
     this._targetHtml = document.getElementById(this.target);
     this._targetHtml.innerHTML += this.html;
@@ -158,7 +157,7 @@ const returnFailed = function(error, customMessage = "") {
 
 class FullMenu {
   constructor(
-    target,
+    target=" ",
     options = {
       init: true,
       styles: {
@@ -177,7 +176,15 @@ class FullMenu {
     }
   ) {
     this.options = options;
-    this.target = target;
+    this._targetGenerated = false;
+    
+    if(!target){
+      this.target = "tailored-"+Date.now().toString(36);
+      this._targetGenerated = true;
+    }else{
+      this.target = target;
+    }
+    
   }
   init() {
     this.generateHTML();
@@ -262,7 +269,8 @@ class FullMenu {
         target: this.target,
         styleTarget: this.menuStyles,
         styles: this.gencss,
-        html: this.genhtml
+        html: this.genhtml,
+        targetGenerated: this._targetGenerated
       },
       "HTML"
     );
