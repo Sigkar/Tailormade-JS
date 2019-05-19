@@ -1,7 +1,20 @@
 // Use jest if thou wish.
 // Unit tests mainly need to go on the code end.
 const GenerateTransitions = require("../src/utilities/tailorservices/GenerateStyleTags").GenerateTransitions;
+const tailorMade = require('../dist/tailormade.dev');
 
+
+
+describe("[FullMenu Suite]", () => {
+   const fullMenuString = new tailorMade.FullMenu("test");
+   test("Sets the target string correctly", () => {
+     expect(fullMenuString.target).toBe("test") 
+   })
+   test("If the string is set then the target isnt generated and is false", () => {
+      expect(fullMenuString._targetGenerated).toBeFalsy()
+    })
+
+})
 
 describe("[GenerateTransitions Suite] [Loc: ./src/utilities/tailorServices/GenerateStyleTags]", () => {
   test("[GenerateTransitions] Generate Single Item Array(s)", () => {
@@ -34,3 +47,4 @@ describe("[GenerateTransitions Suite] [Loc: ./src/utilities/tailorServices/Gener
     );
   });
 });
+
