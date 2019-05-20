@@ -58,8 +58,6 @@ NewDom.prototype.addHtmlContent = function() {
       this.elementToGenerate = "div";
       this.elementName = this.target;
       this.tailorElement();
-      console.log("Generated Target:\n");
-      console.log(this.elementName);
       this.currentElement[this.elementToGenerate.toString()].setAttribute("id", this.elementName);
       document.body.appendChild(this.currentElement[this.elementToGenerate.toString()]);
     }
@@ -72,7 +70,6 @@ NewDom.prototype.addHtmlContent = function() {
 };
 
 NewDom.prototype.addCSSContent = function() {
-  console.log("creating target style");
   // --- Generate a new style
   this.elementToGenerate = "style";
   this.elementName = "tailored_generated_style_" + Date.now().toString(36);
@@ -93,7 +90,6 @@ NewDom.prototype.addCSSContent = function() {
 };
 
 NewDom.prototype.tailorText = function() {
-  console.log("[NewDom][TailorText] Generating Text");
   try {
     return document.createTextNode(this.textToGenerate);
   } catch (e) {
@@ -111,14 +107,12 @@ NewDom.prototype.tailorText = function() {
  */
 NewDom.prototype.tailorElement = function() {
   try {
-    console.log("[tailorElement]Generating tailored element\n\n");
     if (!this.tailoredElement) {
       this.tailoredElement = {};
     }
     let _stamp = "Tailored_object_" + Date.now().toString(16);
 
     let _currentObject = this.tailoredElement;
-    console.log(_currentObject);
 
     _currentObject[_stamp.toString()] = {};
     _currentObject = _currentObject[_stamp.toString()];
@@ -282,11 +276,9 @@ class FullMenu {
 }
 
 const changeMenu = function(target, menuListener, menuopen) {
-  console.log(menuListener);
   if (!menuopen) {
     document.getElementById(menuListener).innerHTML =
       "<style>.TailorMenu{top:0px !important;}</style>";
-    console.log("runnin");
     return true;
   }
   document.getElementById(menuListener).innerHTML =
@@ -299,7 +291,6 @@ function GenerateHash(base = 36){
       return Math.random().toString(base).replace('0.', 'tailor');
 }class GeneratePage {
   constructor(_components) {
-    console.log("[GeneratePage] Constructor");
     
     Object.keys(_components).map(function(objectKey, index, _componentData) {
       if(!_components[objectKey].options.target){
