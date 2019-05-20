@@ -43,6 +43,31 @@ describe("[Generating Styles Suite]", () => {
          "transform:translateX(-50%) translateY(50%);-ms-transform:translateX(-50%) translateY(50%);-moz-transform:translateX(-50%) translateY(50%);-webkit-transform:translateX(-50%) translateY(50%);-o-transform:translateX(-50%) translateY(50%);"
        );
      });
+     test("expect double array + single array to be false", () => {
+         expect(
+            GenerateTransforms(["translateX", "translateY"], ["-50%"])
+         ).toBeFalsy()
+     })
+     test('expect single array + double array to be false', () => {
+        expect(
+           GenerateTransforms(["translateX"], ["-50%", "-50%"])
+        ).toBeFalsy()
+     })
+     test('expect single string + single array to be true', () =>{
+        expect(
+           GenerateTransforms("translateX", ["-50%"])
+        ).not.toBeFalsy()
+     })
+     test('expect single array + single string to be true', ()=>{
+        expect(
+           GenerateTransforms(["translateX"], '-50%')
+        ).not.toBeFalsy()
+     })
+     test('expect single string + single string to be true', ()=>{
+        expect(
+           GenerateTransforms("translateX", "-50%")
+        ).not.toBeFalsy()
+     })
    });
  });
  
