@@ -24,6 +24,40 @@ function GenerateTransitions(transition_title, transition_duration_in_tenths){
    return _cssString;
 }
 
+/**
+ * @author Duncan Pierce <devduncanrocks@gmail.com>
+ * @param {mixed} transition_title 
+ * @param {mixed} transition_duration 
+ * @returns {string}
+ */
+function GenerateTransforms(transforms_array, transform_value){
+   if(!Array.isArray(transforms_array)){
+      transforms_array = [transforms_array];
+   }
+   if(!Array.isArray(transform_value)){
+      transform_value = [transform_value];
+   }
+   if(transforms_array.length !== transform_value.length ){
+      return false;
+   }
+
+   let _cssTransform = "";
+   if(transforms_array.length >= 1){
+      for(let i = 0; i<transforms_array.length; i++){
+         _cssTransform += transforms_array[i] + "(" + transform_value[i] + ")"
+         if(transforms_array[i+1]){
+            _cssTransform += " ";
+         }
+      }
+   }else{
+      _cssTransform += transforms_array[0] + "(" + transform_value[0] + ")"
+   }
+   
+   let _cssString = "transform:" + _cssTransform + ";-ms-transform:" + _cssTransform + ";-moz-transform:" + _cssTransform + ";-webkit-transform:" + _cssTransform + ";-o-transform:" + _cssTransform + ";";
+   return _cssString;
+}
+
 module.exports = {
-   GenerateTransitions
+   GenerateTransitions,
+   GenerateTransforms
 }

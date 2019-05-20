@@ -136,11 +136,9 @@ class FullMenu {
 }
 
 const changeMenu = function(target, menuListener, menuopen) {
-  console.log(menuListener);
   if (!menuopen) {
     document.getElementById(menuListener).innerHTML =
       "<style>.TailorMenu{top:0px !important;}</style>";
-    console.log("runnin");
     return true;
   }
   document.getElementById(menuListener).innerHTML =

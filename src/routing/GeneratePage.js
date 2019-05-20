@@ -2,7 +2,6 @@ import { GenerateHash } from "../utilities/tailorservices/GenerateHash";
 
 class GeneratePage {
   constructor(_components) {
-    console.log("[GeneratePage] Constructor");
     
     Object.keys(_components).map(function(objectKey, index, _componentData) {
       if(!_components[objectKey].options.target){
