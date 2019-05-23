@@ -78,7 +78,7 @@ So, by nature, you can generate a new Tailor Menu via the following code:
 new tailormade.GeneratePage({'menu':new tailormade.FullMenu()});
 ```
 
-## Roadmap
+## Roadmap / Possible Feature List
 
 - Predesigned Components
    - Mastheads
@@ -99,6 +99,9 @@ new tailormade.GeneratePage({'menu':new tailormade.FullMenu()});
 - Regex script that will automatically generate component content for editing.
 - Script that will treeshake a library for the content needed on the backend
 - ServiceWorker support for APIs, Caching, and other materials.
+- Travis CLI to run tests and builds before Pull Requests are merged
+- More Control over the Dist folder
+- Icons
 - A secret project (Lazarus)
 
 ## Built With
