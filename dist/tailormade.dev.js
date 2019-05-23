@@ -284,110 +284,42 @@ const changeMenu = function(target, menuListener, menuopen) {
   document.getElementById(menuListener).innerHTML =
     "<style>.TailorMenu{top:-200% !important;}</style>";
   menuopen = false;
-};// import {GenerateTransitions, GenerateTransforms} from '../tailorservices/GenerateStyleTags';
+};const SetDefaultStyles = function(styles, defaultStyles) {
+  const possible = [
+    "paddingX",
+    "paddingY",
+    "textTransform",
+    "subtitleColor",
+    "subtitleLetterSpacing",
+    "titleColor",
+    "marginY",
+    "marginX",
+    "height",
+    "width",
+    "borderColor",
+    "hoverBackground",
+    "transforms",
+    "transitions"
+  ];
 
-const SetDefaultStyles = function(styles, defaultStyles){
-   let possible = [
-      "paddingX",
-      "paddingY",
-      "textTransform",
-      "subtitleColor",
-      "subtitleLetterSpacing",
-      "titleColor",
-      "marginY",
-      "marginX",
-      "height",
-      "width",
-      "borderColor",
-      "hoverBackground",
-      "transforms",
-      "transitions"
-   ];
-   let constructedStyles = {};
-
-
-   for(let i = 0; i< possible.length; i++){
-      if(styles[possible[i]]){
-         constructedStyles[possible[i]] = styles[possible[i]];
-      }else{
-         constructedStyles[possible[i]] = defaultStyles[possible[i]];
+  if (Object.keys(defaultStyles).length <= 0) {
+    return false;
+  }
+  for (let i = 0; i < possible.length; i++) {
+    try {
+      if (!styles[possible[i]]) {
+        styles[possible[i]] = defaultStyles[possible[i]];
       }
-   }
+    } catch (e) {
+      return false;
+    }
+  }
 
-   return constructedStyles;
-   // if(let styles.paddingX){
-   //    let constructedStyles.paddingX = let default.paddingX;
-   // }else{
-   //    let constructedStyles.paddingX = let styles.paddingX;
-   // }
-
-   // if (!let styles.paddingY){
-   //    let constructedStyles.paddingY = let default.paddingY;
-   // }else{
-   //    let constructedStyles.paddingY = let styles.paddingY;
-   // }
-
-   // if (!let styles.textTransform){let constructedStyles.textTransform = let default.textTransform;}else{let constructedStyles.textTransform = let styles.textTransform;}
-
-   // if (!let styles.subtitleColor){
-   //    let constructedStyles.subtitleColor = let default.subtitleColor;
-   // }else{
-   //    let constructedStyles.subtitleColor = let styles.subtitleColor; 
-   // }
-   // if (!let styles.subtitleLetterSpacing){
-   //    let constructedStyles.subtitleLetterSpacing = let default.subtitleLetterSpacing;
-   // }else{
-   //    let constructedStyles.subtitleLetterSpacing = let styles.subtitleLetterSpacing;
-   // }
-   // if (!let styles.titleColor){
-   //    let constructedStyles.titleColor = let default.titleColor;
-   // }else{
-   //    let constructedStyles.titleColor = let styles.titleColor;
-   // }
-   // if (!let styles.marginY){
-   //    let constructedStyles.marginY = let default.marginY;
-   // }else{
-   //    let constructedStyles.marginY = let styles.marginY;
-   // }
-   // if (!let styles.marginX){
-   //    let constructedStyles.marginX = let default.marginX;
-   // }else{
-   //    let constructedStyles.marginX = let styles.marginX;
-   // }
-   // if (!let styles.height){
-   //    let constructedStyles.height = let default.height;
-   // }else{
-   //    let constructedStyles.height = let styles.height;
-   // }
-   // if (!let styles.width){
-   //    let constructedStyles.width = let default.width;
-   // }else{
-   //    let constructedStyles.width = let styles.width;
-   // }
-   // if (!let styles.borderColor){
-   //    let constructedStyles.borderColor = let default.borderColor;
-   // }else{
-   //    let constructedStyles.borderColor = let styles.borderColor;
-   // }
-   // if (!let styles.hoverBackground){
-   //    let constructedStyles.hoverBackground = let default.hoverBackground;
-   // }else{
-   //    let constructedStyles.hoverBackground = let styles.hoverBackground;
-   // }
-   // if (!let styles.transforms){
-   //    let constructedStyles.transforms = GenerateTransforms("translateY", "-50%");
-   // }else{
-   //    let constructedStyles
-   // }
-   // if (!let styles.transitions){
-   //    let constructedStyles.transitions = GenerateTransitions(["background"], [2]);
-   // }else{
-   //    let constructedStyles
-   // }
+  return styles;
 };
 
 var SetDefaults = {
-   SetDefaultStyles
+  SetDefaultStyles
 };
 var SetDefaults_1 = SetDefaults.SetDefaultStyles;/**
  * @author Duncan Pierce <devduncanrocks@gmail.com>
@@ -403,13 +335,14 @@ var SetDefaults_1 = SetDefaults.SetDefaultStyles;/**
 
 class Feed {
   constructor(target, styles = {}, content = {}, options = {}) {
-    let _defaultStyles = {paddingX: "0px", paddingY: "30px",marginX: "30px",marginY: "auto",height: "auto",width: '80vw',borderColor: "salmon",borderWidth: "10px",borderType: "solid",textTransform: "uppercase",titleColor: "salmon",subtitleColor: "#505050",subtitleLetterSpacing: "1px",transforms: {"translateY":"-50%"},transitions: {"background":"2"}, hoverBackground: "#f0f0f0"};
     
+    const _defaultStyles = {paddingX: "0px", paddingY: "30px",marginX: "30px",marginY: "auto",height: "auto",width: '80vw',borderColor: "salmon",borderWidth: "10px",borderType: "solid",textTransform: "uppercase",titleColor: "salmon",subtitleColor: "#505050",subtitleLetterSpacing: "1px",transforms: {"translateY":"-50%"},transitions: {"background":"2"}, hoverBackground: "#f0f0f0"};
     this.target = target;
     this.options = options;
     this.options.style = SetDefaults_1(styles, _defaultStyles);
     this.content = content;
     this.init();
+
   }
   init() {
     this.bootstrapComponent();
