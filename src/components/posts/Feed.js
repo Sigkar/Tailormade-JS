@@ -1,4 +1,5 @@
 import { NewDom } from "../../utilities/dom/NewDom";
+import {SetDefaultStyles} from '../../utilities/dom/SetDefaults';
 import {
   GenerateTransitions,
   GenerateTransforms
@@ -11,9 +12,12 @@ import {
  */
 
 class Feed {
-  constructor(target, options = {}, content = {}) {
+  constructor(target, styles = {}, content = {}, options = {}) {
+    let _defaultStyles = {paddingX: "0px", paddingY: "30px",marginX: "30px",marginY: "auto",height: "auto",width: '80vw',borderColor: "salmon",borderWidth: "10px",borderType: "solid",textTransform: "uppercase",titleColor: "salmon",subtitleColor: "#505050",subtitleLetterSpacing: "1px",transforms: {"translateY":"-50%"},transitions: {"background":"2"}, hoverBackground: "#f0f0f0"}
+    
     this.target = target;
     this.options = options;
+    this.options.style = SetDefaultStyles(styles, _defaultStyles);
     this.content = content;
     this.init();
   }
@@ -36,28 +40,7 @@ class Feed {
     if (!this.options.style) {
       this.options.style = {};
     }
-    if (!this.options.style.paddingX) this.options.style.paddingX = "0px";
-    if (!this.options.style.paddingY) this.options.style.paddingY = "30px";
-    if (!this.options.style.textTransform)
-      this.options.style.textTransform = "uppercase";
-    if (!this.options.style.subtitleColor)
-      this.options.style.subtitleColor = "#505050";
-    if (!this.options.style.subtitleLetterSpacing)
-      this.options.style.subtitleLetterSpacing = "1px";
-    if (!this.options.style.titleColor)
-      this.options.style.titleColor = "salmon";
-    if (!this.options.style.marginY) this.options.style.marginY = "30px";
-    if (!this.options.style.marginX) this.options.style.marginX = "auto";
-    if (!this.options.style.height) this.options.style.height = "auto";
-    if (!this.options.style.width) this.options.style.width = "80vw";
-    if (!this.options.style.borderColor)
-      this.options.style.borderColor = "salmon";
-    if (!this.options.style.hoverBackground)
-      this.options.style.hoverBackground = "#f0f0f0";
-    if (!this.options.style.transforms)
-      this.options.style.transforms = GenerateTransforms("translateY", "-50%");
-    if (!this.options.style.transitions)
-      this.options.style.transitions = GenerateTransitions(["background"], [2]);
+
   }
   generateHTML() {
     let _generatedDescription = "";
@@ -83,7 +66,6 @@ class Feed {
       '<p id="is_edited" style="color:#303030; font-size:12px;">Read More</p></div></div></div><div class="tailor_feed_post_extras"><div id="tailor_feed_comments">Comment</div><div id="tailor_feed_heart">Like</div><div class="tailor_feed_posted_at"><div id="tailor_feed_tx">' +
       this.content.createdAt +
       "</div></div></div></div></div></div>";
-      console.log(this.generatedHtml);
   }
   generateCSS() {
     let profilePicture;
@@ -126,7 +108,6 @@ class Feed {
       ";}#tailor_feed_comments:hover,#tailor_feed_heart:hover{background:" +
       this.options.style.hoverBackground +
       ";}#tailor_feed_tx{text-align:center;color:#505050;}";
-    console.log(this.generatedCss);
   }
   addListeners() {}
 }

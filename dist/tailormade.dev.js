@@ -284,71 +284,117 @@ const changeMenu = function(target, menuListener, menuopen) {
   document.getElementById(menuListener).innerHTML =
     "<style>.TailorMenu{top:-200% !important;}</style>";
   menuopen = false;
-};/**
- * @author Duncan Pierce <devduncanrocks@gmail.com>
- * @param {mixed} transition_title 
- * @param {mixed} transition_duration 
- * @returns {string}
- */
-function GenerateTransitions(transition_title, transition_duration_in_tenths){
-   
-   transition_duration_in_tenths /= Math.pow(10, 1);
-   let transition = "";
-   if(transition_title.length >= 1 && Array.isArray(transition_title)){
-      for(let i = 0; i<transition_title.length; i++){
-         transition += transition_title[i] + " " + transition_duration_in_tenths + "s";
-         if(transition_title[i+1]){
-            transition+=", ";
-         }
+};// import {GenerateTransitions, GenerateTransforms} from '../tailorservices/GenerateStyleTags';
+
+const SetDefaultStyles = function(styles, defaultStyles){
+   let possible = [
+      "paddingX",
+      "paddingY",
+      "textTransform",
+      "subtitleColor",
+      "subtitleLetterSpacing",
+      "titleColor",
+      "marginY",
+      "marginX",
+      "height",
+      "width",
+      "borderColor",
+      "hoverBackground",
+      "transforms",
+      "transitions"
+   ];
+   let constructedStyles = {};
+
+
+   for(let i = 0; i< possible.length; i++){
+      if(styles[possible[i]]){
+         constructedStyles[possible[i]] = styles[possible[i]];
+      }else{
+         constructedStyles[possible[i]] = defaultStyles[possible[i]];
       }
-   }else{
-      if(Array.isArray(transition_title)){transition_title = transition_title[0];}
-      transition = transition_title + " " + transition_duration_in_tenths + "s";
-   }
-   
-   let _cssString = "transition:" + transition + ";-ms-transition:" + transition + ";-moz-transition:" + transition + ";-webkit-transition:" + transition + ";-o-transition:" + transition + ";";
-   return _cssString;
-}
-
-/**
- * @author Duncan Pierce <devduncanrocks@gmail.com>
- * @param {mixed} transition_title 
- * @param {mixed} transition_duration 
- * @returns {string}
- */
-function GenerateTransforms(transforms_array, transform_value){
-   if(!Array.isArray(transforms_array)){
-      transforms_array = [transforms_array];
-   }
-   if(!Array.isArray(transform_value)){
-      transform_value = [transform_value];
-   }
-   if(transforms_array.length !== transform_value.length ){
-      return false;
    }
 
-   let _cssTransform = "";
-   if(transforms_array.length >= 1){
-      for(let i = 0; i<transforms_array.length; i++){
-         _cssTransform += transforms_array[i] + "(" + transform_value[i] + ")";
-         if(transforms_array[i+1]){
-            _cssTransform += " ";
-         }
-      }
-   }else{
-      _cssTransform += transforms_array[0] + "(" + transform_value[0] + ")";
-   }
-   
-   let _cssString = "transform:" + _cssTransform + ";-ms-transform:" + _cssTransform + ";-moz-transform:" + _cssTransform + ";-webkit-transform:" + _cssTransform + ";-o-transform:" + _cssTransform + ";";
-   return _cssString;
-}
+   return constructedStyles;
+   // if(let styles.paddingX){
+   //    let constructedStyles.paddingX = let default.paddingX;
+   // }else{
+   //    let constructedStyles.paddingX = let styles.paddingX;
+   // }
 
-var GenerateStyleTags = {
-   GenerateTransitions,
-   GenerateTransforms
+   // if (!let styles.paddingY){
+   //    let constructedStyles.paddingY = let default.paddingY;
+   // }else{
+   //    let constructedStyles.paddingY = let styles.paddingY;
+   // }
+
+   // if (!let styles.textTransform){let constructedStyles.textTransform = let default.textTransform;}else{let constructedStyles.textTransform = let styles.textTransform;}
+
+   // if (!let styles.subtitleColor){
+   //    let constructedStyles.subtitleColor = let default.subtitleColor;
+   // }else{
+   //    let constructedStyles.subtitleColor = let styles.subtitleColor; 
+   // }
+   // if (!let styles.subtitleLetterSpacing){
+   //    let constructedStyles.subtitleLetterSpacing = let default.subtitleLetterSpacing;
+   // }else{
+   //    let constructedStyles.subtitleLetterSpacing = let styles.subtitleLetterSpacing;
+   // }
+   // if (!let styles.titleColor){
+   //    let constructedStyles.titleColor = let default.titleColor;
+   // }else{
+   //    let constructedStyles.titleColor = let styles.titleColor;
+   // }
+   // if (!let styles.marginY){
+   //    let constructedStyles.marginY = let default.marginY;
+   // }else{
+   //    let constructedStyles.marginY = let styles.marginY;
+   // }
+   // if (!let styles.marginX){
+   //    let constructedStyles.marginX = let default.marginX;
+   // }else{
+   //    let constructedStyles.marginX = let styles.marginX;
+   // }
+   // if (!let styles.height){
+   //    let constructedStyles.height = let default.height;
+   // }else{
+   //    let constructedStyles.height = let styles.height;
+   // }
+   // if (!let styles.width){
+   //    let constructedStyles.width = let default.width;
+   // }else{
+   //    let constructedStyles.width = let styles.width;
+   // }
+   // if (!let styles.borderColor){
+   //    let constructedStyles.borderColor = let default.borderColor;
+   // }else{
+   //    let constructedStyles.borderColor = let styles.borderColor;
+   // }
+   // if (!let styles.hoverBackground){
+   //    let constructedStyles.hoverBackground = let default.hoverBackground;
+   // }else{
+   //    let constructedStyles.hoverBackground = let styles.hoverBackground;
+   // }
+   // if (!let styles.transforms){
+   //    let constructedStyles.transforms = GenerateTransforms("translateY", "-50%");
+   // }else{
+   //    let constructedStyles
+   // }
+   // if (!let styles.transitions){
+   //    let constructedStyles.transitions = GenerateTransitions(["background"], [2]);
+   // }else{
+   //    let constructedStyles
+   // }
 };
-var GenerateStyleTags_1 = GenerateStyleTags.GenerateTransitions;
-var GenerateStyleTags_2 = GenerateStyleTags.GenerateTransforms;/**
+
+var SetDefaults = {
+   SetDefaultStyles
+};
+var SetDefaults_1 = SetDefaults.SetDefaultStyles;/**
+ * @author Duncan Pierce <devduncanrocks@gmail.com>
+ * @param {mixed} transition_title 
+ * @param {mixed} transition_duration 
+ * @returns {string}
+ *//**
  * @author Duncan Pierce <devduncanrocks@gmail.com>
  * @param {object} options
  * @param {string} target
@@ -356,9 +402,12 @@ var GenerateStyleTags_2 = GenerateStyleTags.GenerateTransforms;/**
  */
 
 class Feed {
-  constructor(target, options = {}, content = {}) {
+  constructor(target, styles = {}, content = {}, options = {}) {
+    let _defaultStyles = {paddingX: "0px", paddingY: "30px",marginX: "30px",marginY: "auto",height: "auto",width: '80vw',borderColor: "salmon",borderWidth: "10px",borderType: "solid",textTransform: "uppercase",titleColor: "salmon",subtitleColor: "#505050",subtitleLetterSpacing: "1px",transforms: {"translateY":"-50%"},transitions: {"background":"2"}, hoverBackground: "#f0f0f0"};
+    
     this.target = target;
     this.options = options;
+    this.options.style = SetDefaults_1(styles, _defaultStyles);
     this.content = content;
     this.init();
   }
@@ -381,28 +430,7 @@ class Feed {
     if (!this.options.style) {
       this.options.style = {};
     }
-    if (!this.options.style.paddingX) this.options.style.paddingX = "0px";
-    if (!this.options.style.paddingY) this.options.style.paddingY = "30px";
-    if (!this.options.style.textTransform)
-      this.options.style.textTransform = "uppercase";
-    if (!this.options.style.subtitleColor)
-      this.options.style.subtitleColor = "#505050";
-    if (!this.options.style.subtitleLetterSpacing)
-      this.options.style.subtitleLetterSpacing = "1px";
-    if (!this.options.style.titleColor)
-      this.options.style.titleColor = "salmon";
-    if (!this.options.style.marginY) this.options.style.marginY = "30px";
-    if (!this.options.style.marginX) this.options.style.marginX = "auto";
-    if (!this.options.style.height) this.options.style.height = "auto";
-    if (!this.options.style.width) this.options.style.width = "80vw";
-    if (!this.options.style.borderColor)
-      this.options.style.borderColor = "salmon";
-    if (!this.options.style.hoverBackground)
-      this.options.style.hoverBackground = "#f0f0f0";
-    if (!this.options.style.transforms)
-      this.options.style.transforms = GenerateStyleTags_2("translateY", "-50%");
-    if (!this.options.style.transitions)
-      this.options.style.transitions = GenerateStyleTags_1(["background"], [2]);
+
   }
   generateHTML() {
     let _generatedDescription = "";
@@ -428,7 +456,6 @@ class Feed {
       '<p id="is_edited" style="color:#303030; font-size:12px;">Read More</p></div></div></div><div class="tailor_feed_post_extras"><div id="tailor_feed_comments">Comment</div><div id="tailor_feed_heart">Like</div><div class="tailor_feed_posted_at"><div id="tailor_feed_tx">' +
       this.content.createdAt +
       "</div></div></div></div></div></div>";
-      console.log(this.generatedHtml);
   }
   generateCSS() {
     let profilePicture;
@@ -471,7 +498,6 @@ class Feed {
       ";}#tailor_feed_comments:hover,#tailor_feed_heart:hover{background:" +
       this.options.style.hoverBackground +
       ";}#tailor_feed_tx{text-align:center;color:#505050;}";
-    console.log(this.generatedCss);
   }
   addListeners() {}
 }/**

@@ -1,7 +1,5 @@
-const GenerateTransitions = require("./GenerateStyleTags")
-  .GenerateTransitions;
-const GenerateTransforms = require("./GenerateStyleTags")
-  .GenerateTransforms;
+const GenerateTransitions = require("./GenerateStyleTags").GenerateTransitions;
+const GenerateTransforms = require("./GenerateStyleTags").GenerateTransforms;
 
 describe("[Generating Styles Suite]", () => {
    describe("Transitions", () => {
@@ -10,25 +8,21 @@ describe("[Generating Styles Suite]", () => {
          "transition:top 0.2s;-ms-transition:top 0.2s;-moz-transition:top 0.2s;-webkit-transition:top 0.2s;-o-transition:top 0.2s;"
        );
      });
- 
      test("Generate Two Item Option Arrays, Single Item Duration Array", () => {
        expect(GenerateTransitions(["left", "top"], [2])).toBe(
          "transition:left 0.2s, top 0.2s;-ms-transition:left 0.2s, top 0.2s;-moz-transition:left 0.2s, top 0.2s;-webkit-transition:left 0.2s, top 0.2s;-o-transition:left 0.2s, top 0.2s;"
        );
      });
- 
      test("Generate One Item Option Array, One Number no array", () => {
        expect(GenerateTransitions(["top"], 2)).toBe(
          "transition:top 0.2s;-ms-transition:top 0.2s;-moz-transition:top 0.2s;-webkit-transition:top 0.2s;-o-transition:top 0.2s;"
        );
      });
- 
      test("Generate Single String, One Number Duration Array", () => {
        expect(GenerateTransitions("top", [2])).toBe(
          "transition:top 0.2s;-ms-transition:top 0.2s;-moz-transition:top 0.2s;-webkit-transition:top 0.2s;-o-transition:top 0.2s;"
        );
      });
- 
      test("Generate Single String, Single Number", () => {
        expect(GenerateTransitions("top", 2)).toBe(
          "transition:top 0.2s;-ms-transition:top 0.2s;-moz-transition:top 0.2s;-webkit-transition:top 0.2s;-o-transition:top 0.2s;"
